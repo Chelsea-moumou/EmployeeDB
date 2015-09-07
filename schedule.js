@@ -2,55 +2,76 @@ var express = require('express');
 var request = require('request');
 var cheerio = require('cheerio');
 var async = require('async');
-// var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/nodetest1');
 var request = require('request');
 var CronJob = require('cron').CronJob;
 var fs = require('fs');
-fs.readFile('./config', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err + "error");
-  }
+
+var uri1Array = [];
+var uri2Array = [];
+var tagArray = [];
+var categoryArray = [];
+var chapterArray = [];
+var linkChapterArray = [];
+var booknameArray = [];
+var bookLinkArray = [];
+var timestampArray = [];
+var authorArray = [];
   
 var job = new CronJob('1 * * * * *', function() {
   /*
    * Runs every minute 
    */
-    var k;
-    var reshtml = '';
-    var json = JSON.parse(data);
-    var website = json.length;
-    for(k = 1; k < 2; k++) {
-      // uri = 'http://all.qidian.com/Book/BookStore.aspx?ChannelId=-1&SubCategoryId=-1&Tag=all&Size=-1&Action=-1&OrderId=6&P=all&PageIndex=' + k + '&update=-1&Vip=-1&Boutique=-1&SignStatus=-1';
-      uri = json[0].uri1 +k+ json[0].uri2;// leave place for k loop
-      request(uri, function(error, response, html){
-        if(!error){
-          var $ = cheerio.load(html);
-          $('div.sw1').each(function(i, element){
-            var a = $(this);
+   fs.readFile('./config', 'utf8', function (err,data) {
+      if (err) {
+        return console.log(err + "error");
+      }
+      // console.log(data);
+      var json = JSON.parse(data);
+      var websites = json.length;
+      
+      for(var i = 0; i < websites; i++) { 
+          uri1Array[i] = json[i].uri1;
+          uri2Array[i] = json[i].uri2;
+          tagArray[i] = json[i].tag;
+          categoryArray[i] = json[i].category;
+          chapterArray[i] = json[i].chapter;
+          linkChapterArray[i] = json[i].linkChapter;
+          booknameArray[i] = json[i].userName;
+          bookLinkArray[i] = json[i].link;
+          timestampArray[i] = json[i].userEmail;
+          authorArray[i] = json[i].author;
+          console.log(authorArray[i]);
+      } 
+      helper(0);
+      function helper(j){
+        if(j >= uri1Array.length){
+          return;
+        }
+        console.log(uri1Array[j]);
+        for(k = 1; k < 2; k++) {
+        request(uri1Array[j] + k +uri2Array[j] , function(error, response, html){
+          if(!error){
+            var $ = cheerio.load(html);
+            $(tagArray[j]).each(function(i, element){
+                var a = $(this);
+                
+                var category = parseSy(categoryArray[j], a);
+                var userName = parseSy(booknameArray[j], a);
+                var chapter = parseSy(chapterArray[j], a);
+                var linkChapter = parseSy(linkChapterArray[j],a);
+                var link = parseSy(bookLinkArray[j],a);
+                var author = parseSy(authorArray[j],a);
+                var userEmail = parseSy(timestampArray[j],a);
+                if(userName){
 
-            var category = a.children().eq(1).children().eq(0).text().trim();
-            var chapter = a.children().eq(2).children().eq(1).text();
-            var linkChapter = a.children().eq(2).children().eq(1).attr('href');
-            var userName = a.children().eq(2).children().first().text().trim();
-            var link = a.children().eq(2).children().eq(0).children().eq(0).attr('href');
-            var author = a.children().eq(4).children().eq(0).text().trim();
-            var userEmail = a.children().eq(5).text();
-
-            reshtml = reshtml + category + chapter + userName + userEmail + '<br/>';
-            
-            // var db = req.db;
-            // Get our form values. These rely on the "name" attributes
-
-            // Set our collection
-            var collection = db.get('usercollection');
-            // var collection = db.collection('usercollection');
+                var collection = db.get('usercollection');
                 collection.find({'username' : userName}, function(err, docs){
                     if(err){
                         console.log("err");
                     }else{
-                        console.log(docs);
+                        // console.log(docs);
                         if(docs != ""){
                           console.log("has in db");
                             collection.update(
@@ -160,20 +181,50 @@ var job = new CronJob('1 * * * * *', function() {
                         }
                     }
                 });
-
-             
-          });
-
+              }
+              });
+            
+          }
+          helper(j + 1);
+          
+        });
         }
-      });  
-      console.log("Done 1 round"); 
-       
-    }  
-  }, function () {
+      }
+   });
+   },function () {
     /* This function is executed when the job stops */
     console.log('stop');
   },
   true, /* Start the job right now */
   'America/Los_Angeles'/* Time zone of this job. */
 );
-});
+
+function parseSy(str,b){
+  // console.log(str);
+  var length = str.length;
+  var m = 0;
+  while(m < length){
+    switch(str.charAt(m)){
+      case 'c':
+        b = b.children();
+        break;
+      case 'x':
+        b = b.text();
+        break;
+      case 't':
+        b = b.trim();
+        break;
+      case 'a':
+        b = b.attr('href');
+        break;
+      case 'l':
+        b = b.attr('title');
+        break;
+      default:
+        b = b.eq(parseInt(str.charAt(m)));
+        break;
+    }
+    m++;
+  }
+  return b;
+}
