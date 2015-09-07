@@ -1,0 +1,26 @@
+[
+    {
+        "uri1": "http://all.qidian.com/Book/BookStore.aspx?ChannelId=-1&SubCategoryId=-1&Tag=all&Size=-1&Action=-1&OrderId=6&P=all&PageIndex=",
+        "uri2": "&update=-1&Vip=-1&Boutique=-1&SignStatus=-1",
+        "tag": "div.sw1",
+        "category" : "c1c0xt",        
+        "chapter" : "c2c1x",          
+        "linkChapter" : "c2c1a",      
+        "userName" : "c2c0xt",       
+        "link" : "c2c0c0a",           
+        "author" : "c4c0xt",        
+        "userEmail" : "c5x"          
+    },
+    {
+        "uri1": "http://book.zongheng.com/store/c0/c0/b9/u0/p",
+        "uri2":"/v9/s9/t0/ALL.html",
+        "tag": "ul.main_con li", 
+        "category" : "c0c0xt",        
+        "chapter" : "c1c2x",          
+        "linkChapter" : "c1c2a",       
+        "userName" : "c1c0xt",        
+        "link" : "c1c0a",              
+        "author" : "c3c0xt",          
+        "userEmail" : "c4l"                
+    }
+]

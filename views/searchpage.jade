@@ -1,0 +1,13 @@
+block content
+
+    h1= title
+    form#search(name="search",method="post",action="/search")
+        
+        input#searchbox(type="search", placeholder="book name", name="searchbox")
+        button#btnSubmit(type="submit") submit
+    h2#results
+
+script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+script(src='/javascripts/main.js')
+script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    

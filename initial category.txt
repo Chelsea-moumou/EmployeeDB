@@ -1,0 +1,71 @@
+db.usercollection.insert({"username":"女生",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"仙侠",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"玄幻",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"游戏",list:[{bookname : "mou”}]})
+db.usercollection.insert({"username":"灵异",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"同人",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"武侠",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"历史",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"都市",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"科幻",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"奇幻",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"军事",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"竞技",list:[{bookname : "mou"}]})
+db.usercollection.insert({"username":"职场",list:[{bookname : "mou"}]})
+
+
+
+//jjwxc backup (customized code may not be right)
+
+{
+        "uri-1": "http://www.jjwxc.net/bookbase_slave.php?submit=&booktype=&opt=&page=",
+        "uri-2": "&endstr=&orderstr=1",
+        "tag": "table.cytable tbody tr",
+        "category" : "c1c0xt",        a.children().eq(2).text().trim();
+        "chapter" : "c2c1x",          a.children().eq(2).children().eq(1).text();
+        "linkChapter" : "c2c1",       a.children().eq(2).children().eq(1).attr('href');
+        "userName" : "c2c1xt",        a.children().eq(1).children().eq(0).text().trim();
+        "link" : "c2c0c0",            a.children().eq(1).children().eq(0).attr('href');
+        "author" : "c4c0xt",          a.children().eq(0).children().eq(0).text().trim();
+        "userEmail" : "c5x"           a.children().eq(7).text();
+    }，
+    {
+        "uri-1": "http://www.jjwxc.net/fenzhan/yq/",
+        "tag": "div#main0 ul.block dl",//ignore first one
+        "category" : "c1c0xt",        a.children().eq(3).text();
+        "chapter" : "c2c1x",          a.children().eq(2).children().eq(0).text();
+        "linkChapter" : "c2c1",       a.children().eq(2).children().eq(0).attr('href');
+        "userName" : "c2c1xt",        a.children().eq(0).children().eq(0).text().trim();
+        "link" : "c2c0c0",            a.children().eq(0).children().eq(0).attr('href');
+        "author" : "c4c0xt",          a.children().eq(1).children().eq(0).text().trim();
+    },
+
+
+// jade AJAX searchpage
+extends layout
+
+block content
+script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+script(src='/javascripts/global.js')
+script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    h1= title
+    //form#search(name="search",method="post",action="/search")
+        
+        input#search(type="search", placeholder="book name", name="searchbox")
+        //button#btnSubmit(type="submit") submit
+    h2#result
+
+// code for hongxiu
+ 
+ {
+        "uri1": "http://novel.hongxiu.com/",
+        "uri2":"",
+        "tag": "ul#box_10 li", 
+        "category" : "c0c0xt",        
+        "chapter" : "c1c1c0x",          
+        "linkChapter" : "c1c1c0a",       
+        "userName" : "c1c0xt",        
+        "link" : "c1c0a",              
+        "author" : "c2xt",          
+        "userEmail" : "c3x"                
+    }

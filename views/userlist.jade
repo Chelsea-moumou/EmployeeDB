@@ -2,8 +2,14 @@ extends layout
 
 block content
     h1.
-        User List
+        BookList
     ul
         each user, i in userlist
-            li
-                a(href="mailto:#{user.email}")= user.username
+            li=user.category
+            l1 
+                a(href="#{user.link}")= user.username 
+            l1 
+                a(href="#{user.linkchapter}")= user.chapter
+            l1=user.author
+            l1=user.email
+
