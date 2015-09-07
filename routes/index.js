@@ -28,13 +28,12 @@ router.get('/searchpage', function(req, res) {
 	res.render('searchpage', { title: 'Search'});
 });
 /* POST to Add User Service */
-router.post('/search', function(req, res) {
+router.get('/search', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-
     // Get our form values. These rely on the "name" attributes
-    var bookName = req.body.searchbox;
+    var bookName = req.query.search;
     console.log(bookName);
     // Set our collection
     var collection = db.get('usercollection');
