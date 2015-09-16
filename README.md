@@ -1,10 +1,10 @@
 # Novel-Aggregation-Service
-Novel Aggregation Service with Configurable Crawler and Search Interface
-Need: Node.js, Express, MonogoDB
-Configure file:
-parsing rule: c -- children()
-              x -- text()
-              t -- trim()
-              a -- attr('href')
-              l -- attr('title')
+Novel Aggregation Service with Configurable Crawler and Search Interface <br>
+Need: Node.js, Express, MonogoDB<br>
+Configure file: <br>
+parsing rule: c -- children() <br>
+              x -- text() <br>
+              t -- trim() <br>
+              a -- attr('href') <br>
+              l -- attr('title') <br>
               number n -- eq(n)
